@@ -16,4 +16,15 @@ server.get('/hobbits', async (req, res) => {
   res.status(200).json(rows);
 });
 
+server.post('/hobbits', async (req, res) => {
+  const hobbit = req.body;
+
+  if (hobbit.name) {
+    const ids = await hobbits.insert(hobbit);
+    res.status(201).json(ids);
+  } else {
+    res.status(400).json({error: 'Missing name'});
+  }
+});
+
 module.exports = server;
